@@ -120,7 +120,11 @@ export const PUT = async (req, res) => {
           };
           let edit = await adminModul.put(id, obj);
           let admin = await adminModul.select(null, { Email: tok.token });
-          res.send({ message: "Muvaffaqiyat o'zgartrildi", statsu: 201, data: admin });
+          res.send({
+            message: "Muvaffaqiyat o'zgartrildi",
+            statsu: 201,
+            data: admin,
+          });
         } else {
           res.send({
             message: "O'zgartirish uchun malumot yuboring",
@@ -132,6 +136,40 @@ export const PUT = async (req, res) => {
       }
     } else {
       res.send({ message: "token yo'q", status: 404 });
+    }
+  } catch (error) {
+    res.send({ message: error.message, status: 404 });
+  }
+};
+
+export const insert = async (req, res) => {
+  try {
+    const parol = "a1c2d7s85a21";
+    let { password } = req.headers;
+    let { Email, LastName, Name, Password, Phone } = req.body;
+    if (password) {
+      if (password == parol) {
+        if (Email && LastName && Name && Password && Phone) {
+          let post = await adminModul.insert(req.body);
+          res.send({
+            message: "Muvaffaqiyatli qo'shildi",
+            status: 201,
+            data: post,
+          });
+        } else {
+          res.send({
+            message: "Kechirasiz siz malumotlarni to'liq to'ldirmadingiz",
+            status: 404,
+          });
+        }
+      } else {
+        res.send({
+          message: "Kechirasiz siz yozgan password xato",
+          status: 404,
+        });
+      }
+    } else {
+      res.send({ message: "Kechirasiz siz passwor yo'q", status: 404 });
     }
   } catch (error) {
     res.send({ message: error.message, status: 404 });

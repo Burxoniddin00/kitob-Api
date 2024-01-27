@@ -19,4 +19,4 @@ app.use("/userBooks", userBooksRouters);
 app.use("/users", usersRouters);
 app.use("/reyting", retingRouters);
 app.use('/admin',adminRouters)
-app.listen(PORT, console.log("SERTEVR RUN >>>>>>>"));
+app.listen(PORT, console.log("SERVER RUN >>>>>>>"));
