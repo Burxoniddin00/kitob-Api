@@ -18,6 +18,7 @@ export const POST = async (req, res) => {
             message: "Kechirasiz siz yozgan parol xato",
           });
         }
+        
       } else {
         res.send({
           status: 404,
